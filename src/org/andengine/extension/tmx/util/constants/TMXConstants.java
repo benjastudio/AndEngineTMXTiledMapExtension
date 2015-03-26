@@ -48,6 +48,9 @@ public interface TMXConstants {
 	public static final String TAG_PROPERTY_ATTRIBUTE_NAME = "name";
 	public static final String TAG_PROPERTY_ATTRIBUTE_VALUE = "value";
 
+	public static final String TAG_POLYLINE = "polyline";
+	public static final String TAG_POLYLINE_ATTRIBUTE_POINTS = "points";
+	
 	public static final String TAG_LAYER = "layer";
 	public static final String TAG_LAYER_ATTRIBUTE_NAME = "name";
 	public static final String TAG_LAYER_ATTRIBUTE_WIDTH = "width";
@@ -75,6 +78,7 @@ public interface TMXConstants {
 	public static final String TAG_OBJECT_ATTRIBUTE_TYPE = "type";
 	public static final String TAG_OBJECT_ATTRIBUTE_X = "x";
 	public static final String TAG_OBJECT_ATTRIBUTE_Y = "y";
+	public static final String TAG_OBJECT_ATTRIBUTE_ROTATION = "rotation";
 	public static final String TAG_OBJECT_ATTRIBUTE_WIDTH = "width";
 	public static final String TAG_OBJECT_ATTRIBUTE_HEIGHT = "height";
 

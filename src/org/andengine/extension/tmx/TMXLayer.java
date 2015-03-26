@@ -258,17 +258,23 @@ public class TMXLayer extends SpriteBatch implements TMXConstants {
 
 		final int column = this.mTilesAdded % tilesHorizontal;
 		final int row = this.mTilesAdded / tilesHorizontal;
+		final int tileHeight = this.mTMXTiledMap.getTileHeight();
+		final int tileWidth = this.mTMXTiledMap.getTileWidth();
 
 		final TMXTile[][] tmxTiles = this.mTMXTiles;
 
 		final ITextureRegion tmxTileTextureRegion;
 		if(pGlobalTileID == 0) {
 			tmxTileTextureRegion = null;
+			final int tileColumn = this.mTilesAdded % this.mTileColumns;
+			final int tileRow = this.mTilesAdded / this.mTileColumns;
+			final TMXTile tmxTile = new TMXTile(pGlobalTileID, tileColumn, tileRow, tileWidth, tileHeight, null);
+			tmxTiles[tileRow][tileColumn] = tmxTile;
+			this.mTilesAdded++;
+			return;
 		} else {
 			tmxTileTextureRegion = tmxTiledMap.getTextureRegionFromGlobalTileID(pGlobalTileID);
 		}
-		final int tileHeight = this.mTMXTiledMap.getTileHeight();
-		final int tileWidth = this.mTMXTiledMap.getTileWidth();
 
 		if(this.mTexture == null) {
 			this.mTexture = tmxTileTextureRegion.getTexture();

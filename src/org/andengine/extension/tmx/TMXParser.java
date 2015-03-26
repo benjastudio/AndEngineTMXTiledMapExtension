@@ -61,7 +61,8 @@ public class TMXParser extends DefaultHandler implements TMXConstants {
 	private boolean mInData;
 	private boolean mInObjectGroup;
 	private boolean mInObject;
-
+	private boolean mInPolyline;
+	
 	// ===========================================================
 	// Constructors
 	// ===========================================================
@@ -88,7 +89,19 @@ public class TMXParser extends DefaultHandler implements TMXConstants {
 
 	@Override
 	public void startElement(final String pUri, final String pLocalName, final String pQualifiedName, final Attributes pAttributes) throws SAXException {
-		if(pLocalName.equals(TMXConstants.TAG_MAP)){
+		
+		if(this.mInObject && pLocalName.equals(TMXConstants.TAG_POLYLINE)){
+			this.mInPolyline = true;
+			// Get last group
+			final ArrayList<TMXObjectGroup> tmxObjectGroups = this.mTMXTiledMap.getTMXObjectGroups();
+			final TMXObjectGroup lastTMXObjectGroup = tmxObjectGroups.get(tmxObjectGroups.size() - 1);
+			// Get last object
+			final ArrayList<TMXObject> tmxObjects = lastTMXObjectGroup.getTMXObjects();
+			final TMXObject lastTMXObject = tmxObjects.get(tmxObjects.size() - 1);
+			// Add points to it
+			lastTMXObject.setPoints(pAttributes.getValue("", TMXConstants.TAG_POLYLINE_ATTRIBUTE_POINTS));
+			
+		} else if(pLocalName.equals(TMXConstants.TAG_MAP)){
 			this.mInMap = true;
 			this.mTMXTiledMap = new TMXTiledMap(pAttributes);
 		} else if(pLocalName.equals(TMXConstants.TAG_TILESET)){
@@ -175,7 +188,10 @@ public class TMXParser extends DefaultHandler implements TMXConstants {
 
 	@Override
 	public void endElement(final String pUri, final String pLocalName, final String pQualifiedName) throws SAXException {
-		if(pLocalName.equals(TMXConstants.TAG_MAP)){
+		if (pLocalName.equals(TMXConstants.TAG_POLYLINE)){
+			Debug.v("TMXParser: element TAG_POLYLINE end.");
+			this.mInPolyline = false;
+		} else if(pLocalName.equals(TMXConstants.TAG_MAP)){
 			this.mInMap = false;
 		} else if(pLocalName.equals(TMXConstants.TAG_TILESET)){
 			this.mInTileset = false;

@@ -106,7 +106,12 @@ public class TMXTileSet implements TMXConstants {
 
 	public void setImageSource(final AssetManager pAssetManager, final TextureManager pTextureManager, final Attributes pAttributes) throws TMXParseException {
 		this.mImageSource = pAttributes.getValue("", TMXConstants.TAG_IMAGE_ATTRIBUTE_SOURCE);
-
+		
+		String[] slipt = this.mImageSource.split("../gfx/");
+		if(slipt.length > 1){
+			this.mImageSource = "gfx/".concat(slipt[1]);
+		}
+		
 		final AssetBitmapTextureAtlasSource assetBitmapTextureAtlasSource = AssetBitmapTextureAtlasSource.create(pAssetManager, this.mImageSource);
 		this.mTilesHorizontal = TMXTileSet.determineCount(assetBitmapTextureAtlasSource.getTextureWidth(), this.mTileWidth, this.mMargin, this.mSpacing);
 		this.mTilesVertical = TMXTileSet.determineCount(assetBitmapTextureAtlasSource.getTextureHeight(), this.mTileHeight, this.mMargin, this.mSpacing);

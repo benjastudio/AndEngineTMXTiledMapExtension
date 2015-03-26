@@ -24,10 +24,12 @@ public class TMXObject implements TMXConstants {
 	private final String mType;
 	private final int mX;
 	private final int mY;
+	private final float mRotation;
 	private final int mWidth;
 	private final int mHeight;
 	private final TMXProperties<TMXObjectProperty> mTMXObjectProperties = new TMXProperties<TMXObjectProperty>();
-
+	private String mPoints;
+	
 	// ===========================================================
 	// Constructors
 	// ===========================================================
@@ -37,6 +39,7 @@ public class TMXObject implements TMXConstants {
 		this.mType = pAttributes.getValue("", TMXConstants.TAG_OBJECT_ATTRIBUTE_TYPE);
 		this.mX = SAXUtils.getIntAttributeOrThrow(pAttributes, TMXConstants.TAG_OBJECT_ATTRIBUTE_X);
 		this.mY = SAXUtils.getIntAttributeOrThrow(pAttributes, TMXConstants.TAG_OBJECT_ATTRIBUTE_Y);
+		this.mRotation = SAXUtils.getFloatAttribute(pAttributes, TMXConstants.TAG_OBJECT_ATTRIBUTE_ROTATION, 0);
 		this.mWidth = SAXUtils.getIntAttribute(pAttributes, TMXConstants.TAG_OBJECT_ATTRIBUTE_WIDTH, 0);
 		this.mHeight = SAXUtils.getIntAttribute(pAttributes, TMXConstants.TAG_OBJECT_ATTRIBUTE_HEIGHT, 0);
 	}
@@ -44,9 +47,20 @@ public class TMXObject implements TMXConstants {
 	// ===========================================================
 	// Getter & Setter
 	// ===========================================================
-
+	public void setPoints(String pPoints){
+		this.mPoints = pPoints;
+	}
+	
+	public boolean isPolyline(){
+		return (this.mPoints != null);
+	}
+	
+	public String getPoints(){
+		return this.mPoints;
+	}
+	
 	public String getName() {
-		return this.mName;
+		return (this.mName != null) ? this.mName : "";
 	}
 
 	public String getType() {
@@ -59,6 +73,10 @@ public class TMXObject implements TMXConstants {
 
 	public int getY() {
 		return this.mY;
+	}
+	
+	public float getRotation() {
+		return this.mRotation;
 	}
 
 	public int getWidth() {
