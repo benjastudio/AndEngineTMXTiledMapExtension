@@ -25,8 +25,8 @@ public class TMXObject implements TMXConstants {
 	private final int mX;
 	private final int mY;
 	private final float mRotation;
-	private final int mWidth;
-	private final int mHeight;
+	private final float mWidth;
+	private final float mHeight;
 	private final TMXProperties<TMXObjectProperty> mTMXObjectProperties = new TMXProperties<TMXObjectProperty>();
 	private String mPoints;
 	
@@ -40,8 +40,8 @@ public class TMXObject implements TMXConstants {
 		this.mX = SAXUtils.getIntAttributeOrThrow(pAttributes, TMXConstants.TAG_OBJECT_ATTRIBUTE_X);
 		this.mY = SAXUtils.getIntAttributeOrThrow(pAttributes, TMXConstants.TAG_OBJECT_ATTRIBUTE_Y);
 		this.mRotation = SAXUtils.getFloatAttribute(pAttributes, TMXConstants.TAG_OBJECT_ATTRIBUTE_ROTATION, 0);
-		this.mWidth = SAXUtils.getIntAttribute(pAttributes, TMXConstants.TAG_OBJECT_ATTRIBUTE_WIDTH, 0);
-		this.mHeight = SAXUtils.getIntAttribute(pAttributes, TMXConstants.TAG_OBJECT_ATTRIBUTE_HEIGHT, 0);
+		this.mWidth = SAXUtils.getFloatAttribute(pAttributes, TMXConstants.TAG_OBJECT_ATTRIBUTE_WIDTH, 0);
+		this.mHeight = SAXUtils.getFloatAttribute(pAttributes, TMXConstants.TAG_OBJECT_ATTRIBUTE_HEIGHT, 0);
 	}
 
 	// ===========================================================
@@ -79,11 +79,11 @@ public class TMXObject implements TMXConstants {
 		return this.mRotation;
 	}
 
-	public int getWidth() {
+	public float getWidth() {
 		return this.mWidth;
 	}
 
-	public int getHeight() {
+	public float getHeight() {
 		return this.mHeight;
 	}
 
